@@ -1,0 +1,19 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Choose Category:
+{% endblock %}
+
+{% block main %}
+    <h2>No Easter Eggs here, go away.</h2>
+    <form action="{{ url_for('pregame') }}" method="POST">
+        <h1>CHOOSE YOUR CATEGORY:</h1>
+        <br><br>
+        <fieldset>
+            <div class="form-group">
+                <button type="submit" value="1" class="btn btn-warning btn-lg btn-block" name="cat">{{ cats.firstcat }}</button>
+                <button type="submit" value="2" class="btn btn-warning btn-lg btn-block" name="cat">{{ cats.secondcat }}</button>
+            </div>
+        </fieldset>
+    </form>
+{% endblock %}

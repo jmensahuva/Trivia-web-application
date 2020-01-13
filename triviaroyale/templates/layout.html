@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+    <head>
+
+        <!-- https://developer.mozilla.org/en-US/docs/Web/HTML/Element/meta -->
+        <meta charset="utf-8"/>
+        <meta content="initial-scale=1, width=device-width" name="viewport"/>
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+
+        <!-- jQuery library -->
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+
+        <!-- Popper -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+
+        <!-- Latest compiled and minified Bootstrap JavaScript -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+
+        <title>Trivia Royale: {% block title %}{% endblock %}</title>
+
+    </head>
+
+    <body>
+
+        <!-- Custom stylesheet here because bootstrap wouldn't work correctly if we used a custom styles.css file.. -->
+        <style type="text/css">
+            @font-face {
+                font-family: 'press_start_2pregular';
+                src: url('static/arcadefont.ttf') format('truetype'),
+                     url('static/arcadefont.woff') format('woff');
+            }
+            body {
+                background: #000000 !important;
+                color: #FFFFFF !important;
+                font-family: 'press_start_2pregular', sans-serif !important;
+            }
+            h1 {
+                text-align: center;
+            }
+            h2 {
+                color: #000000;
+                text-align: center;
+            }
+            .table-borderless td,
+            .table-borderless th {
+                border: none !important;
+                background-color: #000000 !important;
+                text-align: center;
+            }
+        </style>
+
+        <div class="container-fluid">
+
+            <nav class="navbar navbar-expand-sm navbar-dark bg-faded">
+                 <div class="container">
+                    <div class="navbar-header">
+                        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#nav-content" aria-controls="nav-content" aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <a class="navbar-brand" href="{{ url_for('index') }}">Trivia Royale</a>
+                    </div>
+                    <div class="collapse navbar-collapse justify-content-end" id="nav-content">
+                        {% if session.user_id %}
+                            <ul class="nav navbar-nav navbar.justify-content-end">
+                                <li>
+                                    <a class="nav-item" href="{{ url_for('pregame') }}">Play!...</a>
+                                </li>
+                            </ul>
+                            <ul class="nav navbar-nav navbar.justify-content-end">
+                                <li>
+                                    <a class="navbar-item" href="{{ url_for('logout') }}">Log Out</a>
+                                </li>
+                            </ul>
+                        {% else %}
+                            <ul class="nav navbar-nav navbar.justify-content-end">
+                                <li>
+                                    <a class="navbar-item" href="{{ url_for('pregame') }}">Play!...</a>
+                                </li>
+                                <li>
+                                    <a class="navbar-item" href="{{ url_for('register') }}">Register...</a>
+                                </li>
+                                <li>
+                                    <a class="navbar-item" href="{{ url_for('login') }}">Log In</a>
+                                </li>
+                            </ul>
+                        {% endif %}
+                    </div>
+                </div>
+            </nav>
+
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% for category, message in messages %}
+                    <header>
+                        <div class="alert alert-{{ category }}" role="alert">{{ message }}</div>
+                    </header>
+                {% endfor %}
+            {% endwith %}
+
+            <main>
+                {% block main %}{% endblock %}
+            </main>
+
+        </div>
+
+    </body>
+
+</html>
