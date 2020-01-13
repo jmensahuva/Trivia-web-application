@@ -1,1 +1,0 @@
-# Trivia-web-application
